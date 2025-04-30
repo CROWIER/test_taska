@@ -19,16 +19,6 @@ async_session_factory = async_sessionmaker(
 Base = declarative_base()
 
 
-async def create_tables(response: Response, scope: Scope) -> None:
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-
-
-async def drop_tables() -> None:
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-
-
 async def get_session() -> AsyncSession:
     async with async_session_factory() as session:
         try:

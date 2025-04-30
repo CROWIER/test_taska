@@ -5,9 +5,9 @@ from litestar.openapi.plugins import SwaggerRenderPlugin
 from litestar.contrib.sqlalchemy.plugins import SQLAlchemyPlugin, SQLAlchemyAsyncConfig
 
 from src.api import user_router
+from src.config.database import  engine
 from src.config.settings import settings
 from src.api.dependencies import common_dependencies
-from src.config.database import create_tables, engine
 
 api_router = Router(
     path="/api/v1",
@@ -17,7 +17,6 @@ api_router = Router(
 sqlalchemy_plugin = SQLAlchemyPlugin(
     config=SQLAlchemyAsyncConfig(
         engine_instance=engine,
-        before_send_handler=create_tables
     )
 )
 
